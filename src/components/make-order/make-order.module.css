@@ -1,0 +1,11 @@
+.body {
+    display: flex;
+    justify-content: flex-end;
+}
+.total {
+    display: inline;
+    align-self: center;
+}
+.totalText {
+    font-size: 48px;
+}

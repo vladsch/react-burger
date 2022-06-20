@@ -1,0 +1,10 @@
+.ingredient {
+    width: 272px;
+    height: 208px;
+    list-style: none;
+    position: relative;
+}
+
+.price {
+    vertical-align: top;
+}

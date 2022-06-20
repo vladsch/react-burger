@@ -1,0 +1,9 @@
+.header {
+    text-align: left;
+}
+
+.body {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+}
