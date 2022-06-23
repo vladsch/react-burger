@@ -5,32 +5,46 @@ import {
     Counter,
     CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import BURGER_PROP_TYPES from "../../utils/propTypes";
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
-class Ingredient extends React.Component
-{
-    render() {
-        return (
-            <li className={`${styles.ingredient} pl-3 pb-8`}>
-                <img src={this.props.data.image} alt='' />
+function Ingredient({data, count}) {
+    const [selection, setSelection] = React.useState(null);
+
+    const onShowDetails = () => {
+        setSelection(data);
+    };
+
+    const onCloseClick = () => {
+        setSelection(null);
+    };
+
+    return (
+        <>
+            <li className={`${styles.ingredient} pl-3 pb-8`} onClick={onShowDetails}>
+                <img src={data.image} alt='' />
                 <span className={`${styles.price} text text_type_digits-default pr-1`}>
-                    {this.props.data.price}
+                    {data.price}
                 </span>
                 <CurrencyIcon type='primary' />
                 <p className='text text_type_main-default'>
-                    {this.props.data.name}
+                    {data.name}
                 </p>
-                <Counter count={1} size='small' />
+                {count && (<Counter count={count} size='small' />)}
             </li>
-        );
-    }
-}
+            {selection && (
+                <Modal onClose={onCloseClick} title={'Детали ингредиента'}>
+                    <IngredientDetails ingredient={selection} />
+                </Modal>
+            )}
+        </>
+    );
+};
 
 Ingredient.propTypes = {
-    data: PropTypes.shape({
-        image: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired
-    }).isRequired
+    data: BURGER_PROP_TYPES.ingredient.isRequired
 };
 
 export default Ingredient;

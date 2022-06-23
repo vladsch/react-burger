@@ -21,47 +21,44 @@ import {
     MenuIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-class HeaderLink extends React.Component
-{
-    map = {
-        CurrencyIcon,
-        BurgerIcon,
-        LockIcon,
-        DragIcon,
-        CloseIcon,
-        CheckMarkIcon,
-        ListIcon,
-        ProfileIcon,
-        EditIcon,
-        InfoIcon,
-        ShowIcon,
-        HideIcon,
-        LogoutIcon,
-        DeleteIcon,
-        ArrowUpIcon,
-        ArrowDownIcon,
-        MenuIcon
-    }
+const map = {
+    CurrencyIcon,
+    BurgerIcon,
+    LockIcon,
+    DragIcon,
+    CloseIcon,
+    CheckMarkIcon,
+    ListIcon,
+    ProfileIcon,
+    EditIcon,
+    InfoIcon,
+    ShowIcon,
+    HideIcon,
+    LogoutIcon,
+    DeleteIcon,
+    ArrowUpIcon,
+    ArrowDownIcon,
+    MenuIcon
+};
 
-    getIcon = () => {
-        const Icon = this.map[this.props.icon];
-        return (<Icon type={this.props.inactive ? 'inactive' : 'primary'} />);
-    }
+function HeaderLink({icon, inactive, children}) {
+    const renderIcon = () => {
+        const Icon = map[icon];
+        return (<Icon type={inactive ? 'inactive' : 'primary'} />);
+    };
 
-    render() {
-        return (
-            <p className={`${styles.link} pl-5 pr-5 mr-1`}>
-                {this.getIcon()}
-                <span className={`text text_type_main-default ml-2 ${this.props.inactive && 'text_color_inactive'}`}>
-                    {this.props.children}
-                </span>
-            </p>
-        );
-    }
-}
+    return (
+        <p className={`${styles.link} pl-5 pr-5 mr-1`}>
+            {renderIcon()}
+            <span className={`text text_type_main-default ml-2 ${inactive ? 'text_color_inactive' : ''}`}>
+                {children}
+            </span>
+        </p>
+    );
+};
 
 HeaderLink.propTypes = {
-    icon: PropTypes.string.isRequired,
+    icon: PropTypes.oneOf(Object.keys(map)).isRequired,
     inactive: PropTypes.bool,
     children: PropTypes.node.isRequired
 };

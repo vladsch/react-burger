@@ -3,6 +3,7 @@
     height: 208px;
     list-style: none;
     position: relative;
+    cursor: pointer;
 }
 
 .price {
