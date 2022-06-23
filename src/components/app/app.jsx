@@ -3,7 +3,6 @@ import AppHeader from '../app-header/app-header';
 import Main from '../main/main';
 import {CONSTS} from '../../utils/consts';
 import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function App() {

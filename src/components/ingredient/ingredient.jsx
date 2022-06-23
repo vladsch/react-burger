@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './ingredient.module.css';
 import {
     Counter,
@@ -7,7 +6,6 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import BURGER_PROP_TYPES from "../../utils/propTypes";
 import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
 function Ingredient({data, count}) {

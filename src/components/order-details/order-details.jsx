@@ -2,9 +2,6 @@ import React from 'react';
 import styles from './order-details.module.css';
 import PropTypes from 'prop-types';
 import {ReactComponent as OrderImage} from '../../images/order.svg';
-import {
-    CheckMarkIcon
-} from '@ya.praktikum/react-developer-burger-ui-components';
 
 function OrderDetails({orderNumber}) {
     return (
