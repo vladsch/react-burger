@@ -19,12 +19,14 @@ function Modal({title, onClose, children}) {
     }, [onClose]);
 
     return ReactDom.createPortal(
-        <ModalOverlay onClose={onClose}>
+        <>
+            <ModalOverlay onClose={onClose}>
+            </ModalOverlay>
             <div className={`${styles.modal} p-10`}>
                 <ModalHeader title={title} onClose={onClose} />
                 {children}
             </div>
-        </ModalOverlay>,
+        </>,
         document.body
     );
 };

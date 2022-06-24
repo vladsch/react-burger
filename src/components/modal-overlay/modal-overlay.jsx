@@ -4,14 +4,9 @@ import PropTypes from 'prop-types';
 
 function ModalOverlay({onClose, children}) {
     const overlayRef = React.useRef();
-    const checkClose = (e) => {
-        if (e.target === overlayRef.current) {
-            onClose(e);
-        }
-    };
 
     return (
-        <div className={styles.overlay} onClick={checkClose} ref={overlayRef}>
+        <div className={styles.overlay} onClick={onClose} ref={overlayRef}>
             {children}
         </div>
     );
