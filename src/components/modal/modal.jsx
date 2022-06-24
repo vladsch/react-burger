@@ -8,7 +8,7 @@ import ModalHeader from "../modal-header/modal-header";
 function Modal({title, onClose, children}) {
     React.useEffect(() => {
         const close = e => {
-            if (e.keyCode === 27) {
+            if (e.key === 'Escape') {
                 onClose();
             }
         };
@@ -27,7 +27,7 @@ function Modal({title, onClose, children}) {
                 {children}
             </div>
         </>,
-        document.body
+        document.getElementById('modals')
     );
 };
 

@@ -4,7 +4,7 @@ import styles from './ingredients-group.module.css';
 import Ingredient from '../ingredient/ingredient';
 import BURGER_PROP_TYPES from "../../utils/propTypes";
 
-function IngredientsGroup({name, group, items}) {
+function IngredientsGroup({name, group, items, onSelect}) {
     return (
         <>
             {
@@ -15,7 +15,7 @@ function IngredientsGroup({name, group, items}) {
                         </h2>
                         <ul className={styles.body}>
                             {items.map(item => (
-                                <Ingredient data={item} count={1} key={item._id} />
+                                <Ingredient data={item} count={1} key={item._id} onSelect={onSelect} />
                             ))}
                         </ul>
                     </>
@@ -28,7 +28,8 @@ function IngredientsGroup({name, group, items}) {
 IngredientsGroup.propTypes = {
     name: PropTypes.string.isRequired,
     group: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(BURGER_PROP_TYPES.ingredient).isRequired
+    items: PropTypes.arrayOf(BURGER_PROP_TYPES.ingredient).isRequired,
+    onSelect: PropTypes.func
 };
 
 export default IngredientsGroup;

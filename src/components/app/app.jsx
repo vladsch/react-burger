@@ -12,10 +12,17 @@ export default function App() {
 
     React.useEffect(()=> {
         fetch(CONSTS.INGREDIENTS_URL)
-            .then(response => response.json())
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                return Promise.reject(`Ошибка запроса: ${response.status}`);
+            })
             .then(json => {
                 if (json && json.success) {
                     setIngredients(json.data);
+                } else {
+                    throw Promise.reject('Проблема с получением данных от сервера');
                 }
             })
             .catch(error => {
@@ -30,7 +37,7 @@ export default function App() {
 
             {error && (
                 <Modal title={'Ошибка'} onClose={() => setError(null)}>
-                    <div style={{'text-align': 'center'}}>
+                    <div>
                         <p className='text text_type_main-large pb-20 pt-20'>
                             Не удалось получить данные с сервера!
                         </p>

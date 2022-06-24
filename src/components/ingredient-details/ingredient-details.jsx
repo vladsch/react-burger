@@ -19,7 +19,7 @@ function IngredientDetails({ingredient}) {
 
     return (
         <div className={styles.container}>
-            <img className={styles.image} src={ingredient.image_large} alt="" />
+            <img className={styles.image} src={ingredient.image_large} alt={ingredient.name} />
             <p className={`${styles.title} text text_type_main-medium pb-3`}>
                 {ingredient.name}
             </p>
