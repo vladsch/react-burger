@@ -1,0 +1,16 @@
+.body {
+    display: flex;
+    justify-content: flex-end;
+}
+.total {
+    display: flex;
+    align-self: center;
+    align-items: center;
+}
+.total svg {
+    width: 36px;
+    height: 36px;
+}
+.totalText {
+    font-size: 48px;
+}

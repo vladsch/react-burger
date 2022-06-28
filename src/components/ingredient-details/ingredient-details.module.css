@@ -1,0 +1,20 @@
+.container {
+    padding: 20px 60px;
+}
+
+.title,
+.amount {
+    text-align: center;
+}
+
+.image {
+    display: block;
+    margin: 0 auto;
+}
+
+.composition {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
