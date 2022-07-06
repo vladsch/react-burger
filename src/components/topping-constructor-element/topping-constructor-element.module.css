@@ -1,0 +1,14 @@
+
+.dragIcon {
+    margin-right: 10px;
+}
+
+.topping {
+    display: flex;
+    align-items: center;
+    margin: 0 0 16px 0;
+}
+
+.topping:last-child {
+    margin: 0;
+}

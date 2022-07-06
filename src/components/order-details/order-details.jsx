@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './order-details.module.css';
-import PropTypes from 'prop-types';
 import {ReactComponent as OrderImage} from '../../images/order.svg';
+import BURGER_PROP_TYPES from "../../utils/propTypes";
 
-function OrderDetails({orderNumber}) {
+function OrderDetails({order}) {
     return (
         <div className={`${styles.container} p-12`}>
-            <p className={`${styles.orderNumber} text text_type_digits-large pb-5`}>{orderNumber}</p>
+            <p className={`${styles.orderNumber} text text_type_digits-large pb-5`}>{order.number}</p>
             <p className='text text_type_main-default'>идентификатор заказа</p>
             <div className={`${styles.image} pt-15 pb-15`}>
                 <OrderImage />
@@ -22,7 +22,7 @@ function OrderDetails({orderNumber}) {
 };
 
 OrderDetails.propTypes = {
-    orderNumber: PropTypes.string.isRequired
+    order: BURGER_PROP_TYPES.order.isRequired
 }
 
 export default OrderDetails;

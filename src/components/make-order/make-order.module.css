@@ -14,3 +14,9 @@
 .totalText {
     font-size: 48px;
 }
+
+.info{
+    text-align: center;
+    margin-top: 40px;
+    line-height: 70px;
+}
