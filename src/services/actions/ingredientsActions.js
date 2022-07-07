@@ -1,5 +1,5 @@
 import {
-    getIngredientsAsync
+    getIngredientsRequest
 } from "../../utils/api";
 
 export const GET_INGREDIENTS_PROGRESS = "GET_INGREDIENTS_PROGRESS";
@@ -16,7 +16,7 @@ export function getIngredients(callback) {
             type: GET_INGREDIENTS_PROGRESS
         });
 
-        getIngredientsAsync()
+        getIngredientsRequest()
             .then((response) => {
                 if (response && response.success) {
                     dispatch({

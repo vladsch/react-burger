@@ -24,24 +24,6 @@ function MakeOrder() {
     const onMakeOrder = () => {
         setShowModal(true);
 
-        if (!bun) {
-            setModalContent((
-                <p className={`${styles.info} text text_type_main-large`}>
-                    Пожалуйста, добавьте булку
-                </p>
-            ));
-            return;
-        }
-
-        if (!ingredients.length) {
-            setModalContent((
-                <p className={`${styles.info} text text_type_main-large`}>
-                    Пожалуйста, добавьте ингредиенты наполнителя (соусы, начинки)
-                </p>
-            ));
-            return;
-        }
-
         setModalContent((
             <p className={`${styles.info} text text_type_main-large`}>
                 Оформляем заказ...
@@ -75,7 +57,7 @@ function MakeOrder() {
                </span>
                 <CurrencyIcon type='primary' />
             </div>
-            <Button type='primary' size='large' onClick={onMakeOrder}>
+            <Button type='primary' size='large' onClick={onMakeOrder} disabled={!bun || !ingredients.length}>
                 Оформить заказ
             </Button>
             {showModal && (

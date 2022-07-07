@@ -1,5 +1,5 @@
 import {
-    makeOrderAsync
+    makeOrderRequest
 } from "../../utils/api";
 
 export const MAKE_ORDER_PROGRESS = "MAKE_ORDER_PROGRESS";
@@ -18,7 +18,7 @@ export function makeOrder(ingredients, callback) {
             type: MAKE_ORDER_PROGRESS
         });
 
-        makeOrderAsync(ingredients)
+        makeOrderRequest(ingredients)
             .then((response) => {
                 if (response && response.success) {
                     dispatch({

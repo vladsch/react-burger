@@ -19,11 +19,11 @@ const request = (url, method, body) => {
     }).catch(error => Promise.reject(error));
 };
 
-export const getIngredientsAsync = () => {
+export const getIngredientsRequest = () => {
     return request(URLS.INGREDIENTS);
 };
 
-export const makeOrderAsync = (ingredients) => {
+export const makeOrderRequest = (ingredients) => {
     const ids = ingredients.map((ingredient) => ingredient._id);
     const body = JSON.stringify({ ingredients: ids });
     return request(URLS.ORDERS, "POST", body);
