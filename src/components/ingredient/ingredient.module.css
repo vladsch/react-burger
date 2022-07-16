@@ -9,3 +9,7 @@
 .price {
     vertical-align: top;
 }
+
+.isDragging {
+    opacity: 0;
+}

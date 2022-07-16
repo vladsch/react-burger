@@ -4,7 +4,7 @@
 }
 
 .toppings {
-    max-height: calc(100vh - 510px);
+    max-height: calc(100vh - 350px);
     overflow-y: auto;
     list-style: none;
 }
@@ -18,16 +18,7 @@
     background-color: #8585ad;
 }
 
-.dragIcon {
-    margin-right: 10px;
-}
-
-.topping {
-    display: flex;
-    align-items: center;
-    margin: 0 0 16px 0;
-}
-
-.topping:last-child {
-    margin: 0;
+.info{
+    text-align: center;
+    line-height: 1.5;
 }

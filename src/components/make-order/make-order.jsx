@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {useMemo, useState} from 'react';
 import styles from './make-order.module.css';
 import {
     Button,
@@ -7,16 +6,47 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import {useSelector, useDispatch} from "react-redux";
+import {makeOrder} from "../../services/actions/orderActions";
 
-function MakeOrder({total}) {
-    const [orderNumber, setOrderNumber] = React.useState(null);
+function MakeOrder() {
+    const ingredients = useSelector(store => store.order.ingredients);
+    const bun = useSelector(store => store.order.bun);
+    const total = useMemo(() => {
+        const cost = (bun && bun.price) ? bun.price * 2 : 0;
+        return ingredients.reduce((prev, next) => prev + next.price, cost);
+    }, [ingredients, bun]);
+
+    const [showModal, setShowModal] = useState(false);
+    const [modalContent, setModalContent] = useState('');
+    const dispatch = useDispatch();
 
     const onMakeOrder = () => {
-        setOrderNumber('034536');
+        setShowModal(true);
+
+        setModalContent((
+            <p className={`${styles.info} text text_type_main-large`}>
+                Оформляем заказ...
+            </p>
+        ));
+
+        dispatch(
+            makeOrder([bun, ...ingredients, bun], (order) => {
+                if (!order) {
+                    setModalContent((
+                        <p className={`${styles.info} text text_type_main-large`}>
+                            Произошла ошибка при оформлении заказа, попробуйте еще раз
+                        </p>
+                    ));
+                } else {
+                    setModalContent((<OrderDetails order={order} />));
+                }
+            })
+        );
     };
 
     const onCloseClick = () => {
-        setOrderNumber(null);
+        setShowModal(false);
     };
 
     return (
@@ -27,20 +57,16 @@ function MakeOrder({total}) {
                </span>
                 <CurrencyIcon type='primary' />
             </div>
-            <Button type='primary' size='large' onClick={onMakeOrder}>
+            <Button type='primary' size='large' onClick={onMakeOrder} disabled={!bun || !ingredients.length}>
                 Оформить заказ
             </Button>
-            {orderNumber && (
+            {showModal && (
                 <Modal onClose={onCloseClick}>
-                    <OrderDetails orderNumber={orderNumber} />
+                    {modalContent}
                 </Modal>
             )}
         </section>
     );
-};
-
-MakeOrder.propTypes = {
-    total: PropTypes.number.isRequired
 };
 
 export default MakeOrder

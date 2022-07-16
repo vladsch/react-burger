@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from "react-redux";
 import './index.css';
 import App from './components/app/app';
+import { store } from "./services/store.js";
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <App />
-    <div id='modals'></div>
+      <Provider store={store}>
+          <App />
+      </Provider>
   </React.StrictMode>
 );
 

@@ -13,7 +13,11 @@ const BURGER_PROP_TYPES = {
         carbohydrates: PropTypes.number.isRequired,
         fat: PropTypes.number.isRequired,
         proteins: PropTypes.number.isRequired,
-    })
+    }),
+
+    order: PropTypes.shape({
+        number: PropTypes.number.isRequired,
+    }),
 };
 
 export default BURGER_PROP_TYPES;

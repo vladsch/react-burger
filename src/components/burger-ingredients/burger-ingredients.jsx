@@ -1,72 +1,76 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from '../ingredients-group/ingredients-group';
-import PropTypes from "prop-types";
-import BURGER_PROP_TYPES from "../../utils/propTypes";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import { useDispatch, useSelector } from 'react-redux';
+import { closeDetails, setActiveTab } from '../../services/actions/ingredientsActions';
+import {getViewTab} from "../../utils/helpers";
+import {INGREDIENT_TYPE} from "../../utils/consts";
 
-function BurgerIngredients({ingredients}) {
-    const [tabs] = React.useState([
+function BurgerIngredients() {
+    const tabs = [
         {
-            value: 'bun',
-            text: 'Булки',
-            active: true
+            value: INGREDIENT_TYPE.BUN,
+            text: 'Булки'
         },
         {
-            value: 'sauce',
-            text: 'Соусы',
-            active: false
+            value: INGREDIENT_TYPE.SAUCE,
+            text: 'Соусы'
         },
         {
-            value: 'main',
-            text: 'Начинки',
-            active: false
+            value: INGREDIENT_TYPE.MAIN,
+            text: 'Начинки'
         },
-    ]);
+    ];
 
-    const [selection, setSelection] = React.useState(null);
-
-    const onSelect = (data) => {
-        setSelection(data);
-    };
+    const dispatch = useDispatch();
+    const detailsData = useSelector(store => store.ingredients.detailsData);
+    const activeTab = useSelector(store => store.ingredients.activeTab);
+    const scrollRef = useRef(null);
 
     const onCloseClick = () => {
-        setSelection(null);
+        dispatch(closeDetails());
     };
 
-    const bunItems = React.useMemo(() => ingredients.filter((item) => item.type === 'bun'), [ingredients]);
-    const sauceItems = React.useMemo(() => ingredients.filter((item) => item.type === 'sauce'), [ingredients]);
-    const mainItems = React.useMemo(() => ingredients.filter((item) => item.type === 'main'), [ingredients]);
+    const onScroll = () => dispatch(setActiveTab(getViewTab(scrollRef.current)));
+    const setAndScrollActive = (value) => {
+        const group = scrollRef.current.querySelector(`div.group[group=${value}]`)
+        group.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            inline: "nearest",
+        });
+        dispatch(setActiveTab(value));
+    };
 
     return (
         <>
             <div className={`${styles.container} p-2`}>
                 <section className={styles.header}>
                     {tabs.map((tab, index) => (
-                        <Tab value={tab.value} active={tab.value === 'bun'} key={tab.value}>
+                        <Tab value={tab.value}
+                             active={tab.value === activeTab}
+                             key={tab.value}
+                             onClick={() => setAndScrollActive(tab.value)}>
                             {tab.text}
                         </Tab>
                     ))}
                 </section>
-                <section className={`${styles.groups} mt-10`}>
-                    <IngredientsGroup group='bun' name='Булки' items={bunItems} onSelect={onSelect} />
-                    <IngredientsGroup group='sauce' name='Соусы' items={sauceItems} onSelect={onSelect}/>
-                    <IngredientsGroup group='main' name='Начинки' items={mainItems} onSelect={onSelect}/>
+                <section className={`${styles.groups} mt-10`} ref={scrollRef} onScroll={onScroll}>
+                    {tabs.map((tab, index) => (
+                        <IngredientsGroup group={tab.value} key={tab.value} name={tab.text} />
+                    ))}
                 </section>
             </div>
-            {selection && (
+            {detailsData && (
                 <Modal onClose={onCloseClick} title={'Детали ингредиента'}>
-                    <IngredientDetails ingredient={selection} />
+                    <IngredientDetails ingredient={detailsData} />
                 </Modal>
             )}
         </>
     );
-};
-
-BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(BURGER_PROP_TYPES.ingredient).isRequired
 };
 
 export default BurgerIngredients;
