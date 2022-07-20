@@ -4,22 +4,32 @@ import {
     Logo
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import HeaderLink from "../header-link/header-link";
+import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 export default function AppHeader() {
+    const user = useSelector((store) => store.auth);
+
     return (
         <header className={styles.header}>
             <nav className={`${styles.body} p-4`}>
                 <section>
-                    <HeaderLink icon={'BurgerIcon'}>Конструктор</HeaderLink>
-                    <HeaderLink icon={'ListIcon'} inactive={true}>Лента заказов</HeaderLink>
+                    <HeaderLink icon={'BurgerIcon'} path={'/'}>Конструктор</HeaderLink>
+                    <HeaderLink icon={'ListIcon'} path={'/feed'}>Лента заказов</HeaderLink>
                 </section>
 
                 <section className={styles.logo}>
-                    <Logo />
+                    <Link to="/">
+                        <Logo />
+                    </Link>
                 </section>
 
                 <section>
-                    <HeaderLink icon={'ProfileIcon'} inactive={true}>Личный кабинет</HeaderLink>
+                    {user.isAuthorized ? (
+                        <HeaderLink icon={'ProfileIcon'} path={'/profile'}>{`Личный кабинет`}</HeaderLink>
+                    ) : (
+                        <HeaderLink icon={'ProfileIcon'} path={'/login'}>Войти</HeaderLink>
+                    )}
                 </section>
             </nav>
         </header>

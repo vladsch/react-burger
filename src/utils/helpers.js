@@ -13,3 +13,20 @@ export const getViewTab = (scroll) => {
     }
     return viewGroup.getAttribute("group");
 };
+
+export const cookies = {
+    set: (name, value) => {
+        document.cookie = `${name}=${value};path=/`;
+    },
+
+    get: (name) => {
+        let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    },
+
+    delete: (name) => {
+        document.cookie = `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+    }
+};
