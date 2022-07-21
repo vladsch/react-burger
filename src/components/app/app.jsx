@@ -32,7 +32,7 @@ export default function App() {
     const history = useHistory();
     const page = location.state?.page;
     const to = page || location;
-    const onModalClose = () => history.push(location.state.page);
+    const onModalClose = () => history.goBack();
 
     useEffect(() => {
         dispatch(getIngredients());
@@ -53,15 +53,11 @@ export default function App() {
                             </Route>
 
                             <Route path="/login" exact>
-                                <ProtectedRoute authorizedOnly={false} redirectPath={location.state || "/"}>
-                                    <LoginPage />
-                                </ProtectedRoute>
+                                <LoginPage />
                             </Route>
 
                             <Route path="/register" exact>
-                                <ProtectedRoute authorizedOnly={false} redirectPath="/profile">
-                                    <RegisterPage />
-                                </ProtectedRoute>
+                                <RegisterPage />
                             </Route>
 
                             <Route path="/profile" exact>
@@ -77,14 +73,10 @@ export default function App() {
                             </Route>
 
                             <Route path="/forgot-password" exact>
-                                <ProtectedRoute authorizedOnly={false} redirectPath="/profile">
-                                    <RestorePasswordPage />
-                                </ProtectedRoute>
+                                <RestorePasswordPage />
                             </Route>
                             <Route path="/forgot-password/reset" exact>
-                                <ProtectedRoute authorizedOnly={false}  redirectPath="/profile">
-                                    <ResetPasswordPage />
-                                </ProtectedRoute>
+                                <ResetPasswordPage />
                             </Route>
 
                             <Route path="/ingredients/:id" exact>

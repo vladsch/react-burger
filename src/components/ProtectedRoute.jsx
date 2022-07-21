@@ -4,22 +4,18 @@ import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
 function ProtectedRoute({
-    children,
-    redirectPath = "/login",
-    authorizedOnly = true,
+    children
 }) {
-    let auth = useSelector((store) => store.auth);
+    const auth = useSelector((store) => store.auth);
     const location = useLocation();
 
-    if ((!auth.isAuthorized && authorizedOnly) || (auth.isAuthorized && !authorizedOnly)) {
-        return <Redirect to={redirectPath} />;
+    if (!auth.isAuthorized) {
+        return <Redirect to={{ pathname: '/login', state: { from: location } }} />;
     }
 
     return children;
 }
 ProtectedRoute.propTypes = {
-    children: PropTypes.element.isRequired,
-    //redirectPath: PropTypes.string,
-    authorizedOnly: PropTypes.bool
+    children: PropTypes.element.isRequired
 };
 export default ProtectedRoute;

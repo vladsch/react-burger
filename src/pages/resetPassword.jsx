@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {
   Button,
-  Input,
+  Input, PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import pagesStyles from "./pages.module.css";
 import { Link, useHistory, useLocation } from "react-router-dom";
@@ -10,7 +10,7 @@ import { resetPassword} from "../services/actions/authActions";
 
 const ResetPasswordPage = () => {
   const dispatch = useDispatch();
-  const auth = useSelector((store) => store.auth);
+  const {isAuthorized, resetPassword:passwordWasReset} = useSelector((store) => store.auth);
   const location = useLocation();
   const history = useHistory();
   const [password, setPassword] = React.useState("");
@@ -18,16 +18,18 @@ const ResetPasswordPage = () => {
   const [error, setError] = React.useState('');
 
   useEffect(() => {
+    if (isAuthorized) {
+      history.replace(location?.state?.from || '/');
+    }
+
     if (location.state !== "forgot-password") {
       history.push("/forgot-password");
     }
-    if (auth.isAuthorized) {
-      history.push("/profile");
-    }
-    if (auth.resetPassword) {
+
+    if (passwordWasReset) {
       history.push("/login");
     }
-  }, [auth, location, history]);
+  }, [isAuthorized, passwordWasReset]);
 
   const onChange = (setter, e) => {
     setter(e.target.value);
@@ -65,8 +67,7 @@ const ResetPasswordPage = () => {
         </h2>
         <form onSubmit={onSubmit} className={pagesStyles.form}>
           <div className={`${pagesStyles.p100} mt-6`}>
-            <Input
-              type="text"
+            <PasswordInput
               placeholder="Введите новый пароль"
               value={password}
               onChange={(e) => onChange(setPassword, e)}

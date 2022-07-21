@@ -5,7 +5,7 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import pagesStyles from "./pages.module.css";
-import { Link } from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import { login } from "../services/actions/authActions";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -15,13 +15,17 @@ function LoginPage() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
-  const auth = useSelector((store) => store.auth);
+  const {loginFailed, isAuthorized} = useSelector((store) => store.auth);
+  const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
-    if (auth.loginFailed) {
+    if (loginFailed) {
       setError('Ошибка входа. Проверьте правильность логина и пароля.');
+    } else if (isAuthorized) {
+      history.replace(location?.state?.from || '/');
     }
-  }, [auth]);
+  }, [loginFailed, isAuthorized]);
 
   const onChange = (setter, e) => {
     setter(e.target.value);

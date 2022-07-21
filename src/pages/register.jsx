@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import pagesStyles from "./pages.module.css";
 import {
   Input,
@@ -7,7 +7,7 @@ import {
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import {login, register} from "../services/actions/authActions";
 
 export default function RegisterPage() {
@@ -17,6 +17,15 @@ export default function RegisterPage() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState('');
+  const {isAuthorized} = useSelector((store) => store.auth);
+  const location = useLocation();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (isAuthorized) {
+      history.replace(location?.state?.from || '/');
+    }
+  }, [isAuthorized]);
 
   const onChange = (setter, e) => {
     setter(e.target.value);

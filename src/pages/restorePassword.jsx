@@ -3,16 +3,17 @@ import {
   Button, EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import pagesStyles from "./pages.module.css";
-import { Link, useHistory } from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import {askToResetPassword, login} from "../services/actions/authActions";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function RestorePasswordPage() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const auth = useSelector((store) => store.auth);
+  const {isAuthorized, email: emailed} = useSelector((store) => store.auth);
   const [email, setEmail] = React.useState("");
   const [error, setError] = React.useState('');
+  const location = useLocation();
 
   const onChange = (setter, e) => {
     setter(e.target.value);
@@ -20,9 +21,13 @@ export default function RestorePasswordPage() {
   };
 
   useEffect(() => {
-    if (!auth.isAuthorized && auth.email)
+    if (isAuthorized) {
+      history.replace(location?.state?.from || '/');
+    }
+
+    if (!isAuthorized && emailed)
       history.push("/forgot-password/reset", 'forgot-password');
-  }, [auth, history]);
+  }, [isAuthorized, emailed]);
 
   const onSubmit = (e) => {
     e.preventDefault();
