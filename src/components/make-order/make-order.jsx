@@ -8,6 +8,7 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {useSelector, useDispatch} from "react-redux";
 import {makeOrder} from "../../services/actions/orderActions";
+import {useHistory} from "react-router-dom";
 
 function MakeOrder() {
     const ingredients = useSelector(store => store.order.ingredients);
@@ -20,8 +21,18 @@ function MakeOrder() {
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState('');
     const dispatch = useDispatch();
+    const auth = useSelector((store) => store.auth);
+    const history = useHistory();
 
     const onMakeOrder = () => {
+        if (!auth.isAuthorized) {
+            history.replace({
+                pathname: '/login',
+                state: '/'
+            });
+            return;
+        }
+
         setShowModal(true);
 
         setModalContent((

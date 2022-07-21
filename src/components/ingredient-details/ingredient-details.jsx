@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
-import BURGER_PROP_TYPES from "../../utils/propTypes";
+import {useLocation, useParams, useRouteMatch} from "react-router-dom";
+import {useSelector} from "react-redux";
 
-function IngredientDetails({ingredient}) {
+function IngredientDetails() {
     const composition =[{
         name: 'Калории, ккал',
         key: 'calories'
@@ -16,6 +17,11 @@ function IngredientDetails({ingredient}) {
         name: 'Углеводы, г',
         key: 'carbohydrates'
     }];
+
+    const { id } = useParams();
+    const location = useLocation();
+    const ingredients = useSelector((store) => store.ingredients.ingredients);
+    const ingredient = ingredients.find((ingredient) => ingredient._id === id);
 
     return (
         <div className={styles.container}>
@@ -40,9 +46,5 @@ function IngredientDetails({ingredient}) {
         </div>
     );
 };
-
-IngredientDetails.propTypes = {
-    ingredient: BURGER_PROP_TYPES.ingredient.isRequired
-}
 
 export default IngredientDetails;

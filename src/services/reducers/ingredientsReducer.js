@@ -10,6 +10,7 @@ import {
 const initialState = {
     ingredients: [],
     activeTab: "bun",
+    isLoaded: false,
     ingredientsProgress: false,
     ingredientsSucess: false,
     ingredientsFailed: false,
@@ -31,6 +32,7 @@ export const ingredientsReducer = (state = initialState, action) => {
                 ingredientsProgress: false,
                 ingredientsSucess: true,
                 ingredientsFailed: false,
+                isLoaded: true
             };
         }
         case GET_INGREDIENTS_FAILED: {

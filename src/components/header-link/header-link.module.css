@@ -1,3 +1,19 @@
 .link {
+    color: #F2F2F3;
     display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.link p{
+    display: inline-flex;
+}
+
+.link:hover span{
+    color: #F2F2F3;
+}
+
+.link:hover svg{
+    fill: #F2F2F3;
 }

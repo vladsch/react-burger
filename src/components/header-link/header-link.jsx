@@ -20,6 +20,7 @@ import {
     ArrowDownIcon,
     MenuIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import {NavLink, useLocation} from "react-router-dom";
 
 const map = {
     CurrencyIcon,
@@ -41,25 +42,33 @@ const map = {
     MenuIcon
 };
 
-function HeaderLink({icon, inactive, children}) {
+function HeaderLink({icon, path, children}) {
+    const { pathname } = useLocation();
+    const inactive = pathname !== path
+
     const renderIcon = () => {
         const Icon = map[icon];
-        return (<Icon type={inactive ? 'inactive' : 'primary'} />);
+        return (<Icon type={inactive ? 'secondary' : 'primary'} />);
     };
 
     return (
-        <p className={`${styles.link} pl-5 pr-5 mr-1`}>
-            {renderIcon()}
-            <span className={`text text_type_main-default ml-2 ${inactive ? 'text_color_inactive' : ''}`}>
-                {children}
-            </span>
-        </p>
+        <NavLink
+            to={path}
+            activeClassName={`${styles.link} pl-5 pr-5 mr-1`}
+            className={`${styles.link} inactive pl-5 pr-5 mr-1`}>
+            <p>
+                {renderIcon()}
+                <span className={`text text_type_main-default ml-2 ${inactive ? 'text_color_inactive' : ''}`}>
+                    {children}
+                </span>
+            </p>
+        </NavLink>
     );
 };
 
 HeaderLink.propTypes = {
     icon: PropTypes.oneOf(Object.keys(map)).isRequired,
-    inactive: PropTypes.bool,
+    path: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired
 };
 

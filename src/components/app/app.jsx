@@ -1,52 +1,105 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import AppHeader from '../app-header/app-header';
-import Main from '../main/main';
 
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useSelector, useDispatch } from "react-redux";
 import { getIngredients } from '../../services/actions/ingredientsActions';
-import styles from './app.module.css';
-import loaderImage from "../../images/loader.svg";
+import { getUser } from '../../services/actions/authActions';
 import Modal from "../modal/modal";
+import {Route, Switch, useLocation, useHistory, Routes} from "react-router-dom";
+import PreLoader from "../preloader/preloader";
+import HomePage from "../../pages/home";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import IngredientPage from "../../pages/ingredient";
+import NotFoundPage from "../../pages/notFound";
+import LoginPage from "../../pages/login";
+import ProfilePage from "../../pages/profile";
+import ProtectedRoute from "../ProtectedRoute";
+import RegisterPage from "../../pages/register";
+import RestorePasswordPage from "../../pages/restorePassword";
+import ResetPasswordPage from "../../pages/resetPassword";
+import ProfileOrdersPage from "../../pages/profileOrders";
+import FeedPage from "../../pages/feed";
 
 
 export default function App() {
     const dispatch = useDispatch();
-    const isLoading = useSelector(store => store.ingredients.ingredientsProgress);
-    const [error, setError] = useState(false);
+    const isLoaded = useSelector(store => store.ingredients.isLoaded);
+    const checked = useSelector(store => store.auth.checked);
 
-    useEffect(()=>{
-        dispatch(getIngredients((data) => {
-            if (!data) {
-                setError(true);
-            }
-        }));
+    const location = useLocation();
+    const history = useHistory();
+    const page = location.state?.page;
+    const to = page || location;
+    const onModalClose = () => history.goBack();
+
+    useEffect(() => {
+        dispatch(getIngredients());
+        dispatch(getUser());
     }, [dispatch]);
 
     return (
         <>
-            {isLoading ? (
-                <div className={styles.mask}>
-                    <img className={styles.loader} src={loaderImage} alt="Загрузка..." />
-                </div>
+            {!isLoaded || !checked ? (
+                <PreLoader />
             ) : (
-                <div>
+                <>
                     <AppHeader />
                     <DndProvider backend={HTML5Backend}>
-                        <Main />
-                    </DndProvider>
-                </div>
-            )}
+                        <Switch location={to}>
+                            <Route path="/" exact>
+                                <HomePage />
+                            </Route>
 
-            {error && (
-                <Modal title={'Ошибка'} onClose={() => setError(null)}>
-                    <div>
-                        <p className='text text_type_main-large pb-20 pt-20'>
-                            Не удалось получить данные с сервера!
-                        </p>
-                    </div>
-                </Modal>
+                            <Route path="/login" exact>
+                                <LoginPage />
+                            </Route>
+
+                            <Route path="/register" exact>
+                                <RegisterPage />
+                            </Route>
+
+                            <Route path="/profile" exact>
+                                <ProtectedRoute>
+                                    <ProfilePage />
+                                </ProtectedRoute>
+                            </Route>
+
+                            <Route path="/profile/orders" exact>
+                                <ProtectedRoute>
+                                    <ProfileOrdersPage />
+                                </ProtectedRoute>
+                            </Route>
+
+                            <Route path="/forgot-password" exact>
+                                <RestorePasswordPage />
+                            </Route>
+                            <Route path="/forgot-password/reset" exact>
+                                <ResetPasswordPage />
+                            </Route>
+
+                            <Route path="/ingredients/:id" exact>
+                                <IngredientPage />
+                            </Route>
+
+                            <Route path="/feed" exact>
+                                <FeedPage />
+                            </Route>
+
+                            <Route path="*">
+                                <NotFoundPage />
+                            </Route>
+                        </Switch>
+                        {page && (
+                            <Route path="/ingredients/:id" exact>
+                                <Modal onClose={onModalClose}>
+                                    <IngredientDetails />
+                                </Modal>
+                            </Route>
+                        )}
+                    </DndProvider>
+                </>
             )}
         </>
     );
