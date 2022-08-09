@@ -1,0 +1,4 @@
+export enum DRAG_TYPES {
+    FROM_CARD = 'FROM_CARD',
+    FROM_CONSTRUCTOR = 'FROM_CONSTRUCTOR'
+}
