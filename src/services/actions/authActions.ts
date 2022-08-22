@@ -11,17 +11,17 @@ import { cookies } from "../../utils/helpers";
 import {TOKEN} from "../../definitions/enums/Token";
 import {AppThunk} from "../store";
 
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAILURE = "LOGIN_FAILURE";
-export const LOGOUT = "LOGOUT";
-export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
-export const REGISTER_FAILURE = "REGISTER_FAILURE";
-export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
-export const GET_USER_FAILURE = "GET_USER_FAILURE";
-export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
-export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
-export const ASK_TO_RESET_PASSWORD_SUCCESS = "RESTORE_USER_EMAIL_SUCCESS";
-export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
+export const LOGIN_SUCCESS: "LOGIN_SUCCESS" = "LOGIN_SUCCESS";
+export const LOGIN_FAILURE: "LOGIN_FAILURE" = "LOGIN_FAILURE";
+export const LOGOUT: "LOGOUT" = "LOGOUT";
+export const REGISTER_SUCCESS: "REGISTER_SUCCESS" = "REGISTER_SUCCESS";
+export const REGISTER_FAILURE: "REGISTER_FAILURE" = "REGISTER_FAILURE";
+export const GET_USER_SUCCESS: "GET_USER_SUCCESS" = "GET_USER_SUCCESS";
+export const GET_USER_FAILURE: "GET_USER_FAILURE" = "GET_USER_FAILURE";
+export const UPDATE_USER_SUCCESS: "UPDATE_USER_SUCCESS" = "UPDATE_USER_SUCCESS";
+export const UPDATE_USER_FAILURE: "UPDATE_USER_FAILURE" = "UPDATE_USER_FAILURE";
+export const ASK_TO_RESET_PASSWORD_SUCCESS: "RESTORE_USER_EMAIL_SUCCESS" = "RESTORE_USER_EMAIL_SUCCESS";
+export const RESET_PASSWORD_SUCCESS: "RESET_PASSWORD_SUCCESS" = "RESET_PASSWORD_SUCCESS";
 
 export function login(email: string, password: string): AppThunk {
   return function (dispatch) {
@@ -60,7 +60,7 @@ export function logout(): AppThunk {
   };
 }
 
-export function register(email: string, password: string, name: string) {
+export function register(email: string, password: string, name: string): AppThunk {
   return function (dispatch) {
     registerRequest(email, password, name)
       .then((response) => {

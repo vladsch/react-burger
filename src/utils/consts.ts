@@ -1,5 +1,7 @@
 const rootUrl = 'https://norma.nomoreparties.space/api/';
 const rootAuthUrl = `${rootUrl}auth/`;
+export const wsAllOrdersUrl: string = 'wss://norma.nomoreparties.space/orders/all';
+export const wsUserOrdersUrl: string = 'wss://norma.nomoreparties.space/orders';
 
 export const URLS = {
   INGREDIENTS: `${rootUrl}ingredients`,

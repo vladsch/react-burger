@@ -1,8 +1,10 @@
+import {INGREDIENT_TYPE} from "../enums/IngredientType";
+
 export interface IIngredient {
   _id: string;
   key?: string,
   name: string;
-  type: string;
+  type: INGREDIENT_TYPE;
   proteins: number;
   fat: number;
   carbohydrates: number;

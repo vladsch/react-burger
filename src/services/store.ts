@@ -2,6 +2,9 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { compose, createStore, applyMiddleware, Action, AnyAction } from 'redux';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { rootReducer, RootState } from "./reducers/reducers";
+import createSocketMiddleware from "../middlewares/SocketMiddleware";
+import {allOrdersWsActions, userOrdersWsActions} from "./actions/wsActions";
+import {wsAllOrdersUrl, wsUserOrdersUrl} from "../utils/consts";
 
 declare global {
     interface Window {
@@ -14,7 +17,9 @@ const composeEnhancers =
         ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
         : compose;
 
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const publicOrdersMiddleware = createSocketMiddleware(wsAllOrdersUrl, allOrdersWsActions);
+const privateOrdersMiddleware = createSocketMiddleware(wsUserOrdersUrl, userOrdersWsActions, true);
+const enhancer = composeEnhancers(applyMiddleware(thunk, publicOrdersMiddleware, privateOrdersMiddleware));
 
 export const store = createStore(rootReducer, enhancer);
 

@@ -6,10 +6,10 @@ import {IIngredientsReducerAction} from "../../definitions/services/reducers/Ing
 import {AppThunk} from "../store";
 import {IIngredient} from "../../definitions/models/IIngredient";
 
-export const GET_INGREDIENTS_PROGRESS = "GET_INGREDIENTS_PROGRESS";
-export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
-export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED";
-export const SET_ACTIVE_TAB = "SET_ACTIVE_TAB";
+export const GET_INGREDIENTS_PROGRESS: "GET_INGREDIENTS_PROGRESS" = "GET_INGREDIENTS_PROGRESS";
+export const GET_INGREDIENTS_SUCCESS: "GET_INGREDIENTS_SUCCESS" = "GET_INGREDIENTS_SUCCESS";
+export const GET_INGREDIENTS_FAILED: "GET_INGREDIENTS_FAILED" = "GET_INGREDIENTS_FAILED";
+export const SET_ACTIVE_TAB: "SET_ACTIVE_TAB" = "SET_ACTIVE_TAB";
 
 export function getIngredients(callback?: (data: IIngredient[] | null) => void): AppThunk {
     return function (dispatch) {
