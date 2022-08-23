@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import styles from './ingredient-details.module.css';
 import {useParams} from "react-router-dom";
 import {IIngredientDetailsParams} from "../../definitions/components/IIngredientDetailsParams";
@@ -21,7 +21,9 @@ function IngredientDetails() {
 
     const { id } = useParams<IIngredientDetailsParams>();
     const ingredients = useAppSelector((store) => store.ingredients.ingredients);
-    const ingredient = ingredients.find((ingredient) => ingredient._id === id);
+    const ingredient = useMemo(() => {
+        return ingredients.find((ingredient) => ingredient._id === id);
+    }, [ingredients, id]);
 
     return (
         ingredient ? (

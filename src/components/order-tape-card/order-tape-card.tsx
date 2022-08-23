@@ -5,11 +5,15 @@ import {getDate, getOrderTotalCost, getReadableOrderStatus} from "../../utils/he
 import {IIngredient} from "../../definitions/models/IIngredient";
 import {IOrderTapeCardProps} from "../../definitions/components/IOrderTapeCardProps";
 import {ORDER_STATUS} from "../../definitions/enums/OrderStatus";
+import {useMemo} from "react";
 
 const OrderTapeCard = ({ order, originalIngredients }: IOrderTapeCardProps): JSX.Element => {
-  const mappedIngredients: Array<IIngredient> = order.ingredients
-    .map(item => originalIngredients.find(original => original._id === item))
-    .filter(item => item !== undefined) as Array<IIngredient>;
+  const {ingredients} = order;
+  const mappedIngredients: Array<IIngredient> = useMemo(() => {
+      return ingredients
+          .map(item => originalIngredients.find(original => original._id === item))
+          .filter(item => item !== undefined) as Array<IIngredient>;
+  }, [ingredients, originalIngredients]);
 
   return (
       <div className={ `pt-6 pb-6 pl-6 pr-6 ${ styles.container }` }>

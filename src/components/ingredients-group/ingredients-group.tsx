@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import styles from './ingredients-group.module.css';
 import Ingredient from '../ingredient/ingredient';
 import {useAppSelector} from "../../services/store";
@@ -6,7 +6,7 @@ import {IIngredientsGroupProps} from "../../definitions/components/IIngredientsG
 
 function IngredientsGroup({name, group}: IIngredientsGroupProps): JSX.Element {
     const ingredients = useAppSelector(store => store.ingredients.ingredients);
-    const items = ingredients.filter((item) => item.type === group);
+    const items = useMemo(() => ingredients.filter((item) => item.type === group), [ingredients, group]);
 
     return (
         <>

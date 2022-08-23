@@ -61,7 +61,8 @@ export const getIngredientsRequest = (): Promise<IIngredientsResponse> => {
 export const makeOrderRequest = (ingredients: IIngredient[]): Promise<IResponse & IOrderResponse> => {
     const ids = ingredients.map((ingredient) => ingredient._id);
     const body = JSON.stringify({ ingredients: ids });
-    return request(URLS.ORDERS, "POST", body);
+    const headers = { authorization: cookies.get(TOKEN.ACCESS) };
+    return request(URLS.ORDERS, "POST", body, headers);
 };
 
 /*

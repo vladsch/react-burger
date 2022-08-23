@@ -3,18 +3,22 @@ import IngredientIcon from "../ingredient-icon/ingredient-icon";
 import {IIngredientIconListProps} from "../../definitions/components/IIngredientIconListProps";
 import {IIngredient} from "../../definitions/models/IIngredient";
 import {INGREDIENT_TYPE} from "../../definitions/enums/IngredientType";
+import {useMemo} from "react";
 
 const IngredientIconList = ({ ingredients }: IIngredientIconListProps): JSX.Element => {
-  const uniqueIngredients = new Map<string, Array<IIngredient>>();
-  const bun: IIngredient | undefined = ingredients.find(item => item.type === INGREDIENT_TYPE.BUN);
+  const bun: IIngredient | undefined = useMemo(() => ingredients.find(item => item.type === INGREDIENT_TYPE.BUN), [ingredients]);
   const maxIngredientIconIndex: number = 50;
 
-  ingredients.forEach(item => {
-    if (item.type !== INGREDIENT_TYPE.BUN) {
-      const value: Array<IIngredient> = uniqueIngredients.has(item._id) ? [...uniqueIngredients.get(item._id) as Array<IIngredient>, item] : [item];
-      uniqueIngredients.set(item._id, value);
-    }
-  });
+  const uniqueIngredients = useMemo(() => {
+    const map = new Map<string, Array<IIngredient>>();
+    ingredients.forEach(item => {
+      if (item.type !== INGREDIENT_TYPE.BUN) {
+        const value: Array<IIngredient> = map.has(item._id) ? [...map.get(item._id) as Array<IIngredient>, item] : [item];
+        map.set(item._id, value);
+      }
+    });
+    return map;
+  }, [ingredients]);
 
   return (<div className={ styles.container }>
     { bun && (<div style={ { zIndex: maxIngredientIconIndex } }>
