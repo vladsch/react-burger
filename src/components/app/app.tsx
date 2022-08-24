@@ -23,6 +23,8 @@ import FeedPage from "../../pages/feed";
 import {useAppDispatch, useAppSelector} from "../../services/store";
 import { History, LocationState } from "history";
 import {ILocationState} from "../../definitions/ILocationState";
+import OrderTapeCardDetails from "../order-tape-card-details/order-tape-card-details";
+import OrderPage from "../../pages/order";
 
 
 export default function App(): JSX.Element {
@@ -89,16 +91,40 @@ export default function App(): JSX.Element {
                                 <FeedPage />
                             </Route>
 
+                            <Route path="/feed/:id" exact>
+                                <OrderPage />
+                            </Route>
+
+                            <Route path="/profile/orders/:id" exact>
+                                <ProtectedRoute>
+                                    <OrderPage />
+                                </ProtectedRoute>
+                            </Route>
+
                             <Route path="*">
                                 <NotFoundPage />
                             </Route>
                         </Switch>
                         {page && (
-                            <Route path="/ingredients/:id" exact>
-                                <Modal onClose={onModalClose}>
-                                    <IngredientDetails />
-                                </Modal>
-                            </Route>
+                            <Switch>
+                                <Route path="/ingredients/:id" exact>
+                                    <Modal onClose={onModalClose}>
+                                        <IngredientDetails />
+                                    </Modal>
+                                </Route>
+                                <Route path="/feed/:id" exact>
+                                    <Modal onClose={onModalClose}>
+                                        <OrderTapeCardDetails />
+                                    </Modal>
+                                </Route>
+                                <Route path="/profile/orders/:id" exact>
+                                    <ProtectedRoute>
+                                        <Modal onClose={onModalClose}>
+                                            <OrderTapeCardDetails />
+                                        </Modal>
+                                    </ProtectedRoute>
+                                </Route>
+                            </Switch>
                         )}
                     </DndProvider>
                 </>

@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.ingredientName {
+    width: 100%;
+}
+
+.ingredientPrice {
+    display: flex;
+    align-items: center;
+}
+
+.ingredientPrice > p {
+    white-space: nowrap;
+}

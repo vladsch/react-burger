@@ -1,0 +1,21 @@
+.container {
+    width: 100%;
+    border-radius: 40px;
+    background-color: #1c1c21;
+    box-sizing: border-box;
+}
+
+.spaceBetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.spaceBetween > svg {
+    width: 22px;
+    height: 22px;
+}
+
+.statusDone {
+    color: #00cccc;
+}
