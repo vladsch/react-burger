@@ -70,7 +70,7 @@ function ToppingConstructorElement({ingredient, index}: IToppingConstructorEleme
     drag(drop(ref));
 
     return (
-        <li className={`${styles.topping} pr-2 mb-2`}
+        <li className={`constructor-ingredient constructor-ingredient-${ingredient.type} ${styles.topping} pr-2 mb-2`}
             ref={ref}
             data-handler-id={handlerId}
             style={{ opacity }}>

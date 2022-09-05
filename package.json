@@ -39,7 +39,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "cypress:open": "./node_modules/.bin/cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -60,6 +61,10 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^10.7.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "fetch-mock": "^9.11.0",
+    "redux-mock-store": "^1.5.4",
     "gh-pages": "^4.0.0",
     "typescript-plugin-css-modules": "^3.4.0"
   }

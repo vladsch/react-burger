@@ -11,7 +11,7 @@ import {
 import {IOrderReducerState} from "../../definitions/services/reducers/OrderReducer/IOrderReducerState";
 import {IOrderReducerAction} from "../../definitions/services/reducers/OrderReducer/IOrderReducerAction";
 
-const initialState: IOrderReducerState = {
+export const initialState: IOrderReducerState = {
     bun: null,
     ingredients: [],
     order: null,
