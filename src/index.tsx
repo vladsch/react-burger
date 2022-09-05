@@ -5,7 +5,7 @@ import './index.css';
 import App from './components/app/app';
 import { store } from "./services/store";
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -14,13 +14,13 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
-    <BrowserRouter>
+    <HashRouter>
       <React.StrictMode>
           <Provider store={store}>
               <App />
           </Provider>
       </React.StrictMode>
-    </BrowserRouter>
+    </HashRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
