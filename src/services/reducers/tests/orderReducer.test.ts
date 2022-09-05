@@ -1,4 +1,4 @@
-import {orderReducer} from "../orderReducer";
+import {orderReducer, initialState} from "../orderReducer";
 import {
   ADD_BUN,
   ADD_INGREDIENT,
@@ -14,16 +14,6 @@ import {IOrder} from "../../../definitions/models/IOrder";
 import {ORDER_STATUS} from "../../../definitions/enums/OrderStatus";
 import {IIngredient} from "../../../definitions/models/IIngredient";
 import {INGREDIENT_TYPE} from "../../../definitions/enums/IngredientType";
-
-const initialState: IOrderReducerState = {
-  bun: null,
-  ingredients: [],
-  order: null,
-  orderProgress: false,
-  orderSuccess: false,
-  orderFailed: false,
-  totalPrice: 0,
-}
 
 test('should return the initial state order reducer', () => {
   expect(orderReducer(undefined, { type: '' })).toEqual(initialState);

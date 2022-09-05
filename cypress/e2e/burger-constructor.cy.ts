@@ -1,10 +1,13 @@
 /// <reference types="cypress" />
 
 import {INGREDIENT_TYPE} from "../../src/definitions/enums/IngredientType";
+import {URLS} from "../../src/utils/consts";
+
+const testUrl = 'http://localhost:3000';
 
 describe('drag and drop ingredients', () => {
     before(() => {
-        cy.visit('http://localhost:3000');
+        cy.visit(testUrl);
         cy.get('.burger-ingredient', {
             timeout: 5000
         }).should('be.visible');
@@ -53,8 +56,10 @@ describe('drag and drop ingredients', () => {
         cy.contains('Оформить заказ').click();
         cy.get('.modal-window').should("exist");
         cy.contains('Оформляем заказ...');
-        cy.intercept("POST", "https://norma.nomoreparties.space/api/orders").as('makeOrder');
-        cy.wait('@makeOrder');
+        cy.intercept("POST", URLS.ORDERS).as('makeOrder');
+        cy.wait('@makeOrder', {
+            timeout: 30000
+        });
 
         cy.contains("идентификатор заказа");
         cy.contains("Ваш заказ начали готовить");
@@ -67,7 +72,7 @@ describe('drag and drop ingredients', () => {
 
 describe("modal windows with ingredient details work correctly", function () {
     before(function () {
-        cy.visit("http://localhost:3000");
+        cy.visit(testUrl);
     });
 
     it("should open modal window with ingredient details", function () {

@@ -1,4 +1,4 @@
-import { authReducer } from "../authReducer";
+import { authReducer, initialState } from "../authReducer";
 import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -14,15 +14,6 @@ import {
 } from "../../actions/authActions";
 import {IAuthReducerState} from "../../../definitions/services/reducers/AuthReducer/IAuthReducerState";
 import {orderReducer} from "../orderReducer";
-
-const initialState: IAuthReducerState = {
-  name: "",
-  email: "",
-  isAuthorized: false,
-  resetPassword: false,
-  checked: false,
-  loginFailed: false
-};
 
 test('should return the initial state auth reducer', () => {
   expect(authReducer(undefined, {type: ''})).toEqual(initialState);

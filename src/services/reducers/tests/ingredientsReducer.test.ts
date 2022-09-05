@@ -1,4 +1,4 @@
-import {ingredientsReducer} from "../ingredientsReducer";
+import {ingredientsReducer, initialState} from "../ingredientsReducer";
 import {
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_PROGRESS,
@@ -8,15 +8,6 @@ import {
 import {IIngredientsReducerState} from "../../../definitions/services/reducers/IngredientsReducer/IIngredientsReducerState";
 import {IIngredient} from "../../../definitions/models/IIngredient";
 import {INGREDIENT_TYPE} from "../../../definitions/enums/IngredientType";
-
-const initialState: IIngredientsReducerState = {
-  ingredients: [],
-  activeTab: INGREDIENT_TYPE.BUN,
-  isLoaded: false,
-  ingredientsProgress: false,
-  ingredientsSuccess: false,
-  ingredientsFailed: false
-}
 
 test('should return the initial state ingredients reducer', () => {
   expect(ingredientsReducer(undefined, { type: '' })).toEqual(initialState);

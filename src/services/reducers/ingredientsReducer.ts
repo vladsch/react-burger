@@ -8,7 +8,7 @@ import {IIngredientsReducerState} from "../../definitions/services/reducers/Ingr
 import {INGREDIENT_TYPE} from "../../definitions/enums/IngredientType";
 import {IIngredientsReducerAction} from "../../definitions/services/reducers/IngredientsReducer/IIngredientsReducerAction";
 
-const initialState: IIngredientsReducerState = {
+export const initialState: IIngredientsReducerState = {
     ingredients: [],
     activeTab: INGREDIENT_TYPE.BUN,
     isLoaded: false,

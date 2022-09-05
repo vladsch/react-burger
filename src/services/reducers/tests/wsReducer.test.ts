@@ -1,4 +1,4 @@
-import { wsReducer } from "../wsReducer";
+import { wsReducer, initialState } from "../wsReducer";
 import {
   WS_ALL_ORDERS_CONNECTION_CLOSED,
   WS_ALL_ORDERS_CONNECTION_ERROR,
@@ -9,16 +9,6 @@ import {
 } from "../../actions/wsActions";
 import {IWsReducerState} from "../../../definitions/services/reducers/WsReducer/IWsReducerState";
 import { IOrder } from "../../../definitions/models/IOrder";
-
-const initialState: IWsReducerState = {
-  wsAllOrdersConnected: false,
-  wsUserOrdersConnected: false,
-
-  allOrders: [],
-  userOrders: [],
-  total: 0,
-  totalToday: 0,
-};
 
 test('should return the initial state ws reducer', () => {
   expect(wsReducer(undefined, { type: '' })).toEqual(initialState);

@@ -14,7 +14,7 @@ import {
 import {IAuthReducerState} from "../../definitions/services/reducers/AuthReducer/IAuthReducerState";
 import {IAuthReducerAction} from "../../definitions/services/reducers/AuthReducer/IAuthReducerAction";
 
-const initialState: IAuthReducerState = {
+export const initialState: IAuthReducerState = {
   name: "",
   email: "",
   isAuthorized: false,

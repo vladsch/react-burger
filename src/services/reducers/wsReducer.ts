@@ -11,7 +11,7 @@ import {
 import {IWsReducerState} from "../../definitions/services/reducers/WsReducer/IWsReducerState";
 import {IWsReducerAction} from "../../definitions/services/reducers/WsReducer/IWsReducerAction";
 
-const initialState: IWsReducerState = {
+export const initialState: IWsReducerState = {
   wsAllOrdersConnected: false,
   wsUserOrdersConnected: false,
 
