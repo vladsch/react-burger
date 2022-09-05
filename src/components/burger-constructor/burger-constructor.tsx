@@ -37,7 +37,7 @@ function BurgerConstructor() {
     });
 
     return (
-        <div className={styles.list} ref={dropRef}>
+        <div className={`constructor-ingredients ${styles.list}`} ref={dropRef}>
             {noItems && (
                 <p className={`${styles.info} text text_color_inactive text_type_main-large ml-4 mt-25`}>
                     Для оформления заказа добавьте ингредиенты из области слева
@@ -45,7 +45,7 @@ function BurgerConstructor() {
             )}
 
             {bun && (
-                <section className={`mb-4 pr-4`}>
+                <section className={`constructor-ingredient constructor-ingredient-bun mb-4 pr-4`}>
                     <ConstructorElement
                         type='top'
                         thumbnail={bun.image_mobile}
@@ -67,7 +67,7 @@ function BurgerConstructor() {
             )}
 
             {bun && (
-                <section className={`mb-4 pr-4`}>
+                <section className={`constructor-ingredient constructor-ingredient-bun mb-4 pr-4`}>
                     <ConstructorElement
                         type='bottom'
                         thumbnail={bun.image_mobile}
