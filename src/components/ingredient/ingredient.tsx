@@ -28,7 +28,7 @@ function Ingredient({data}: IIngredientProps) {
     const location = useLocation();
 
     return (
-        <li className={`${styles.ingredient} pl-3 pb-8 ${isDrag ? styles.isDragging : ''}`} data-ingredient-id={data._id} ref={dragRef}>
+        <li className={`burger-ingredient burger-ingredient-${data.type} ${styles.ingredient} pl-3 pb-8 ${isDrag ? styles.isDragging : ''}`} data-ingredient-id={data._id} ref={dragRef}>
             <Link
                 className={styles.link}
                 to={{

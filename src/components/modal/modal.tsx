@@ -22,7 +22,7 @@ function Modal({title, onClose, children}: IModalProps) {
         <>
             <ModalOverlay onClose={onClose}>
             </ModalOverlay>
-            <div className={`${styles.modal} p-10`}>
+            <div className={`modal-window ${styles.modal} p-10`}>
                 <ModalHeader title={title} onClose={onClose} />
                 {children}
             </div>

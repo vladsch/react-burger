@@ -7,7 +7,7 @@ function ModalHeader({title, onClose}: IModalHeaderProps) {
     return (
         <div className={styles.header}>
             <h3 className={`${styles.title} text text_type_main-large`}>{title}</h3>
-            <button className={styles.button} onClick={onClose}>
+            <button className={`close-modal-button ${styles.button}`} onClick={onClose}>
                 <CloseIcon type='primary' />
             </button>
         </div>

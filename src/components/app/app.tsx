@@ -108,7 +108,7 @@ export default function App(): JSX.Element {
                         {page && (
                             <Switch>
                                 <Route path="/ingredients/:id" exact>
-                                    <Modal onClose={onModalClose}>
+                                    <Modal onClose={onModalClose} title={'Детали ингредиента'}>
                                         <IngredientDetails />
                                     </Modal>
                                 </Route>
